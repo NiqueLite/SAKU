@@ -1,16 +1,6 @@
 import telebot
 import requests
 
-MAX_RETRIES = 20
-url ='http://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi'
-
-session = requests.Session()
-adapter = requests.adapters.HTTPAdapter(max_retries=MAX_RETRIES)
-session.mount('https://', adapter)
-session.mount('http://', adapter)
-
-r = session.get(url)
-
 bot = telebot.TeleBot("696784173:AAEL2r-0y_qaYAoYLq7bv6hVlJFZJ-pvKCA")
 
 @bot.message_handler(commands=['start'])
@@ -32,3 +22,18 @@ def send_welcome(message):
 		bot.send_message(message.chat.id,"https://t.me/addstickers/AnUkraine\nhttps://t.me/addstickers/ancapsticker\nhttps://t.me/addstickers/AnarchyUkraine")
 
 bot.polling()
+
+MAX_RETRIES = 20
+url ='http://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi'
+
+session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(max_retries=MAX_RETRIES)
+session.mount('https://', adapter)
+session.mount('http://', adapter)
+
+r = session.get(url)
+
+def index(request):
+    r = requests.get('http://httpbin.org/status/418')
+    print(r.text)
+    return HttpResponse('<pre>' + r.text + '</pre>')
